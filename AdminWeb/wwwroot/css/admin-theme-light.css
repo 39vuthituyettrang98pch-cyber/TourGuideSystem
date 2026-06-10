@@ -1,0 +1,95 @@
+:root[data-theme="light"] {
+  --bg: #f6f7fb;
+  --bg2: #ffffff;
+  --bg3: #f1f4fb;
+  --bg4: #e7ecf7;
+  --border: rgba(2,6,23,0.10);
+  --border2: rgba(2,6,23,0.16);
+  --text: #0b1220;
+  --text2: #475569;
+  --text3: #64748b;
+  --accent: #2563eb;
+  --accent2: #1d4ed8;
+  --accent-glow: rgba(37,99,235,0.14);
+
+  /* keep semantic colors */
+  --green: #16a34a;
+  --green-bg: rgba(22,163,74,0.12);
+  --amber: #d97706;
+  --amber-bg: rgba(217,119,6,0.12);
+  --red: #dc2626;
+  --red-bg: rgba(220,38,38,0.12);
+  --purple: #7c3aed;
+  --purple-bg: rgba(124,58,237,0.12);
+}
+
+:root[data-theme="light"] html,
+:root[data-theme="light"] body {
+  background: var(--bg) !important;
+  color: var(--text) !important;
+}
+
+/* Fix header/search color in light mode */
+:root[data-theme="light"] .sidebar {
+  background: var(--bg2) !important;
+}
+
+:root[data-theme="light"] .header,
+:root[data-theme="light"] .content,
+:root[data-theme="light"] .card,
+:root[data-theme="light"] .stat-card {
+  background: var(--bg2) !important;
+}
+
+:root[data-theme="light"] .header-breadcrumb,
+:root[data-theme="light"] .header-breadcrumb .current,
+:root[data-theme="light"] .search-bar input,
+:root[data-theme="light"] .search-bar i {
+  color: var(--text) !important;
+}
+
+:root[data-theme="light"] .search-bar {
+  background: var(--bg3) !important;
+  border-color: var(--border) !important;
+}
+
+
+:root[data-theme="light"] .nav-item:hover,
+:root[data-theme="light"] .nav-item.active {
+  background: var(--bg3);
+  color: var(--text);
+}
+
+:root[data-theme="light"] .icon-btn:hover {
+  background: var(--bg4);
+  color: var(--text);
+}
+
+:root[data-theme="light"] .card,
+:root[data-theme="light"] .stat-card {
+  background: var(--bg2);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="light"] select, 
+:root[data-theme="light"] .form-control {
+  color-scheme: light;
+}
+
+/* =========================================================
+   FIX: CHỐNG TÀNG HÌNH CHỮ TRONG LIGHT MODE
+   Tự động đổi màu chữ thành tối nếu thẻ bị gán cứng class/style màu trắng
+   ========================================================= */
+:root[data-theme="light"] .text-white,
+:root[data-theme="light"] .text-light,
+:root[data-theme="light"] [style*="color: white"],
+:root[data-theme="light"] [style*="color:white"],
+:root[data-theme="light"] [style*="color: #fff"],
+:root[data-theme="light"] [style*="color:#fff"],
+:root[data-theme="light"] [style*="color: #ffffff"],
+:root[data-theme="light"] [style*="color:#ffffff"] {
+  color: var(--text) !important;
+}

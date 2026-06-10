@@ -1,0 +1,50 @@
+@model AdminWeb.Models.Poi
+
+@{
+    ViewData["Title"] = "Thêm POI mới";
+}
+
+<div class="page-title">Thêm POI mới</div>
+<div class="page-subtitle">Tạo điểm tham quan mới trên hệ thống để du khách khám phá.</div>
+<div class="card" style="padding:28px;">
+    <form asp-action="Create" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <div class="form-grid">
+            <div class="form-group full">
+                <label class="form-label">Tên điểm tham quan (Tiếng Việt)</label>
+                <input class="form-control" name="Name" type="text" placeholder="Ví dụ: Dinh Độc Lập" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Vĩ độ (Latitude)</label>
+                <input class="form-control" name="Latitude" type="number" step="any" placeholder="Ví dụ: 10.7769" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Kinh độ (Longitude)</label>
+                <input class="form-control" name="Longitude" type="number" step="any" placeholder="Ví dụ: 106.6951" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Bán kính kích hoạt Geofence (mét)</label>
+                <input class="form-control" name="Radius" type="number" value="50" min="10" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label">Trạng thái</label>
+                <select class="form-control" name="Status">
+                    <option value="active">Hoạt động</option>
+                    <option value="disabled">Đã ẩn</option>
+                </select>
+            </div>
+            <div class="form-group full">
+                <label class="form-label">Ảnh bìa (Thumbnail)</label>
+                <input class="form-control" type="file" name="coverImage" accept="image/*" />
+            </div>
+            <div class="form-group full">
+                <label class="form-label">Mô tả ngắn (Tiếng Việt)</label>
+                <textarea class="form-control" name="Description" rows="4" placeholder="Mô tả tóm tắt nội dung điểm tham quan"></textarea>
+            </div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap; margin-top:24px;">
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Lưu POI</button>
+            <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>

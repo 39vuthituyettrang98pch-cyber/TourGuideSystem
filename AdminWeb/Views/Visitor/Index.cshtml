@@ -1,0 +1,70 @@
+@model IEnumerable<AdminWeb.Models.Tourist>
+@{
+    ViewData["Title"] = "Quản lý Du khách";
+}
+
+<div class="page-title">Quản lý Du khách</div>
+<div class="page-subtitle">Danh sách người dùng và du khách đã đăng ký trên ứng dụng.</div>
+
+<div class="toolbar">
+    <div>
+        <form asp-action="Index" method="get" style="display: flex; gap: 8px;">
+            <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" class="form-control" placeholder="Tìm kiếm theo Tên hoặc Email..." style="padding: 6px 12px; width: 280px; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text); border-radius: 8px;" />
+            <button type="submit" class="btn btn-secondary btn-sm" title="Tìm kiếm"><i class="fa-solid fa-magnifying-glass"></i></button>
+            @if (!string.IsNullOrEmpty(ViewData["CurrentFilter"] as string))
+            {
+                <a asp-action="Index" class="btn btn-secondary btn-sm" title="Xóa bộ lọc"><i class="fa-solid fa-xmark"></i></a>
+            }
+        </form>
+    </div>
+    <div>
+        <a asp-action="Create" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Thêm du khách mới</a>
+    </div>
+</div>
+
+<div class="table-wrapper">
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Họ và Tên</th>
+                <th>Email</th>
+                <th>Ngày đăng ký</th>
+                <th>Thao tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td style="font-weight: bold; color: var(--accent);">#@item.Id</td>
+                        <td style="font-weight: 600;">@item.FullName</td>
+                        <td>@item.Email</td>
+                        <td style="color: var(--text2);">@item.CreatedAt.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info text-white" title="Xem chi tiết"><i class="fa-solid fa-eye"></i> Chi tiết</a>
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning text-dark" title="Sửa"><i class="fa-solid fa-pen"></i> Sửa</a>
+                                
+                                <form asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline-block;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tài khoản này?');">
+                                    <button type="submit" class="btn btn-sm btn-danger" title="Xóa"><i class="fa-solid fa-trash"></i> Xóa</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 40px 20px; color: var(--text2);">
+                        <i class="fa-solid fa-users" style="font-size: 32px; margin-bottom: 12px; opacity: 0.5; display: block;"></i>
+                        <em>Không có dữ liệu du khách.</em>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

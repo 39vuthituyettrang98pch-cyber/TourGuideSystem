@@ -1,0 +1,36 @@
+@model AdminWeb.Models.CategoryTranslation
+
+@{
+    ViewData["Title"] = "Thêm bản dịch Danh mục";
+}
+
+<div class="page-title">Thêm bản dịch Danh mục</div>
+<div class="page-subtitle">Thêm nội dung và ngôn ngữ mới cho Danh mục.</div>
+<div class="card" style="padding:28px;">
+    <form asp-action="CreateTranslation" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="CategoryId" />
+        
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">Mã ngôn ngữ</label>
+                <select class="form-control" asp-for="LanguageCode" required>
+                    <option value="vi">Tiếng Việt (vi)</option>
+                    <option value="en">Tiếng Anh (en)</option>
+                    <option value="fr">Tiếng Pháp (fr)</option>
+                    <option value="de">Tiếng Đức (de)</option>
+                    <option value="ja">Tiếng Nhật (ja)</option>
+                    <option value="zh">Tiếng Trung (zh)</option>
+                </select>
+            </div>
+            <div class="form-group full">
+                <label class="form-label">Tên Danh mục</label>
+                <input class="form-control" asp-for="Name" type="text" required />
+            </div>
+        </div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap; margin-top:24px;">
+            <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Lưu bản dịch</button>
+            <a asp-action="Translations" asp-route-id="@Model.CategoryId" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,210 @@
+/*
+  roi-site.css
+  - Mục tiêu: “ROI site CSS” cho React admin, lấy cảm hứng/normalize từ wwwroot/css/site.css
+  - Đảm bảo các class legacy (card/table/badge/button/toast/...) có sẵn trong bundle React.
+
+  Lưu ý: React app hiện dùng Tailwind nhiều, file này bổ sung thêm theme primitives.
+*/
+
+:root {
+  --roi-ink: #0f172a;
+  --roi-muted: #64748b;
+
+  --roi-bg: #eef2ff;
+  --roi-bg2: rgba(255, 255, 255, 0.35);
+
+  --roi-border: rgba(255, 255, 255, 0.65);
+  --roi-border-2: rgba(255, 255, 255, 0.85);
+
+  --roi-accent: #4f8bff;
+  --roi-accent-2: #3d6fd9;
+  --roi-accent-glow: rgba(79, 139, 255, 0.14);
+
+  --roi-green: #22c55e;
+  --roi-green-bg: rgba(34, 197, 94, 0.12);
+
+  --roi-amber: #f59e0b;
+  --roi-amber-bg: rgba(245, 158, 11, 0.12);
+
+  --roi-red: #ef4444;
+  --roi-red-bg: rgba(239, 68, 68, 0.12);
+
+  --roi-purple: #a855f7;
+  --roi-purple-bg: rgba(168, 85, 247, 0.12);
+
+  --roi-radius: 14px;
+  --roi-radius-sm: 10px;
+
+  --roi-shadow: 0 24px 64px rgba(0, 0, 0, 0.18);
+  --roi-inset: inset 6px 6px 12px rgba(31, 41, 55, 0.12), inset -6px -6px 12px rgba(255, 255, 255, 0.7);
+
+  --roi-transition: 0.2s ease;
+  --roi-font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Base */
+.roi-surface {
+  border: 1px solid var(--roi-border);
+  border-radius: var(--roi-radius);
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: var(--roi-shadow);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.roi-surface--neo {
+  padding: 22px;
+  background: rgba(241, 245, 249, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  box-shadow: 14px 14px 32px rgba(31, 41, 55, 0.16), -12px -12px 28px rgba(255, 255, 255, 0.72);
+  border-radius: var(--roi-radius);
+}
+
+/* Buttons */
+.roi-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 900;
+  transition: var(--roi-transition);
+  text-decoration: none;
+  font-family: var(--roi-font);
+}
+
+.roi-btn--primary {
+  background: #0f172a;
+  color: #fff;
+  box-shadow: 0 16px 28px rgba(15, 23, 42, 0.22);
+}
+
+.roi-btn--primary:hover {
+  filter: brightness(1.04);
+}
+
+.roi-btn--secondary {
+  background: rgba(255, 255, 255, 0.6);
+  color: #334155;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+}
+
+.roi-btn--danger {
+  background: var(--roi-red-bg);
+  color: var(--roi-red);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+}
+
+/* Badges */
+.roi-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.roi-badge--green {
+  background: var(--roi-green-bg);
+  color: var(--roi-green);
+}
+
+.roi-badge--amber {
+  background: var(--roi-amber-bg);
+  color: var(--roi-amber);
+}
+
+.roi-badge--red {
+  background: var(--roi-red-bg);
+  color: var(--roi-red);
+}
+
+.roi-badge--blue {
+  background: var(--roi-accent-glow);
+  color: var(--roi-accent);
+}
+
+.roi-badge--purple {
+  background: var(--roi-purple-bg);
+  color: var(--roi-purple);
+}
+
+/* Tables */
+.roi-table-wrap {
+  overflow-x: auto;
+}
+
+.roi-table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: collapse;
+}
+
+.roi-table th,
+.roi-table td {
+  padding: 14px 16px;
+  text-align: left;
+}
+
+.roi-table th {
+  font-size: 11px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.9px;
+  color: var(--roi-muted);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.65);
+}
+
+.roi-table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.55);
+}
+
+.roi-table tbody tr:hover td {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* Toast */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.toast {
+  padding: 14px 20px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: roiSlideIn 0.3s ease;
+  min-width: 280px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.toast.success { background: var(--roi-green-bg); color: var(--roi-green); border: 1px solid rgba(34, 197, 94, 0.2); }
+.toast.error { background: var(--roi-red-bg); color: var(--roi-red); border: 1px solid rgba(239, 68, 68, 0.2); }
+.toast.info { background: var(--roi-accent-glow); color: var(--roi-accent); border: 1px solid rgba(79, 139, 255, 0.2); }
+
+@keyframes roiSlideIn {
+  from { transform: translateX(120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Leaflet harmonize */
+.leaflet-container {
+  border-radius: var(--roi-radius);
+}
+
+.leaflet-tooltip {
+  border-radius: 12px;
+}
+

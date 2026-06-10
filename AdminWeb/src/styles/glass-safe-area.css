@@ -1,0 +1,77 @@
+:root {
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-bg: rgba(255, 255, 255, 0.35);
+  --glass-strong: rgba(255, 255, 255, 0.70);
+}
+
+/*
+  Safe-area helpers cho iPhone notch / màn hình có thanh hệ thống.
+  Dùng cho header/footer/container để tránh bị che.
+*/
+.safe-area-top {
+  padding-top: max(env(safe-area-inset-top), 12px);
+}
+
+.safe-area-bottom {
+  padding-bottom: max(env(safe-area-inset-bottom), 12px);
+}
+
+.safe-area-left {
+  padding-left: max(env(safe-area-inset-left), 12px);
+}
+
+.safe-area-right {
+  padding-right: max(env(safe-area-inset-right), 12px);
+}
+
+.safe-area-x {
+  padding-left: max(env(safe-area-inset-left), 12px);
+  padding-right: max(env(safe-area-inset-right), 12px);
+}
+
+/* Glass base */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 20px 60px rgba(2, 6, 23, 0.08);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 28px 80px rgba(2, 6, 23, 0.12);
+}
+
+/* Smooth tap */
+.glass-tap {
+  transition: transform 160ms ease, filter 160ms ease, background 160ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.glass-tap:active {
+  transform: translateY(1px) scale(0.99);
+  filter: brightness(0.98);
+}
+
+/* Mobile animations */
+@media (prefers-reduced-motion: no-preference) {
+  .fade-up {
+    animation: fadeUp 260ms ease-out both;
+  }
+
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 8px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+}
+

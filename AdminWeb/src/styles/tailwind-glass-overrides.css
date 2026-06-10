@@ -1,0 +1,64 @@
+/*
+  tailwind-glass-overrides.css
+  - Mục tiêu: cải thiện cảm giác “glass/neo” toàn web React
+  - Không đụng logic JS, chỉ bổ sung CSS fallback cho các shadow/tone đang dùng ở JSX.
+*/
+
+/* Font smoothing */
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Legacy-ish utility fallbacks (tránh trường hợp class shadow-neo/* không có định nghĩa trong Tailwind) */
+.shadow-neo {
+  box-shadow:
+    0 24px 56px rgba(15, 23, 42, 0.10),
+    0 12px 24px rgba(2, 6, 23, 0.04);
+}
+
+.shadow-neo-inset {
+  box-shadow:
+    inset 6px 6px 12px rgba(31, 41, 55, 0.12),
+    inset -6px -6px 12px rgba(255, 255, 255, 0.70);
+}
+
+/* Subtle glass panel hover */
+.bg-white\/35:hover,
+.bg-white\/45:hover,
+.bg-white\/70:hover {
+  border-color: rgba(255, 255, 255, 0.85) !important;
+}
+
+/* Table polish */
+table td,
+table th {
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Leaflet */
+.leaflet-control-attribution,
+.leaflet-control {
+  filter: drop-shadow(0 8px 24px rgba(2, 6, 23, 0.15));
+}
+
+.leaflet-tooltip {
+  border: 1px solid rgba(255, 255, 255, 0.65) !important;
+  background: rgba(255, 255, 255, 0.55) !important;
+  color: #0f172a !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* Dashboard stat cards - fix center alignment for the number */
+.stat-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center; /* Bắt buộc text bên trong nằm giữa */
+  width: 100%; /* Ép thẻ p chiếm 100% không gian của thẻ cha để canh giữa chính xác */
+  line-height: 1; /* Cắt bỏ các khoảng trống (padding) thừa mặc định của font chữ */
+  min-height: 1em;
+  padding-block: 2px; /* Bù lại một chút xíu để các số dùng font quá đậm (font-black) không bị lẹm viền trên/dưới */
+}
+

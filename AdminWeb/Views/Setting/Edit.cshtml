@@ -1,0 +1,133 @@
+@model IEnumerable<AdminWeb.Models.SystemSetting>
+@{
+    ViewData["Title"] = "Cài đặt hệ thống";
+}
+
+<div class="page-title text-white">Cài đặt hệ thống</div>
+<div class="page-subtitle text-white">Quản lý và thay đổi các cấu hình chung của ứng dụng.</div>
+
+<div class="row">
+    <div class="col-lg-5 col-xl-4 mb-4">
+        <div class="card h-100">
+            <div class="card-header" style="display: block; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 20px;">
+                <h5 class="card-title mb-1 text-white">
+                    <i class="fa-solid fa-bolt me-2" style="color: var(--amber);"></i> Cấu hình nhanh
+                </h5>
+                <p class="card-subtitle mt-1 text-white" style="font-size: 13px; margin-bottom: 0;">
+                    Điều chỉnh nhanh các thông số lõi.
+                </p>
+            </div>
+
+            <div class="card-body">
+                <form asp-action="QuickUpdate" method="post">
+                    <div class="form-group mb-4">
+                        <label class="form-label text-white">Độ nhạy GPS / Bán kính (mét)</label>
+                        <div style="position: relative;">
+                            <i class="fa-solid fa-satellite-dish" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: white; font-size: 13px;"></i>
+                            <input type="number" name="gpsRadius" class="form-control text-white" value="15" style="padding-left: 38px;" />
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label text-white">Thời gian chờ Audio (giây)</label>
+                        <div style="position: relative;">
+                            <i class="fa-solid fa-stopwatch" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: white; font-size: 13px;"></i>
+                            <input type="number" name="audioTimeout" class="form-control text-white" value="120" style="padding-left: 38px;" />
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label text-white">Ngôn ngữ mặc định</label>
+                        <div style="position: relative;">
+                            <i class="fa-solid fa-language" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: white; font-size: 13px;"></i>
+                            <select name="defaultLang" class="form-control text-white" style="padding-left: 38px; appearance: none;">
+                                <option value="vi" selected>Tiếng Việt</option>
+                                <option value="en">English</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: white; font-size: 12px; pointer-events: none;"></i>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-4">
+                        <label class="form-label text-white">Analytics</label>
+                        <div style="position: relative;">
+                            <i class="fa-solid fa-chart-column" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: white; font-size: 13px;"></i>
+                            <select name="analyticsToggle" class="form-control text-white" style="padding-left: 38px; appearance: none;">
+                                <option value="true" selected>Bật thu thập</option>
+                                <option value="false">Tắt thu thập</option>
+                            </select>
+                            <i class="fa-solid fa-chevron-down" style="position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: white; font-size: 12px; pointer-events: none;"></i>
+                        </div>
+                    </div>
+
+                    <hr style="border-color: var(--border); margin: 24px 0 20px;" />
+
+                    <div style="display: flex; justify-content: flex-end;">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-floppy-disk"></i> Lưu nhanh
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-7 col-xl-8 mb-4">
+        <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center" style="border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 0;">
+                <div>
+                    <h5 class="card-title mb-1 text-white">
+                        <i class="fa-solid fa-list-ul me-2" style="color: var(--accent);"></i> Tất cả thông số
+                    </h5>
+                    <p class="card-subtitle mt-1 text-white" style="font-size: 13px; margin-bottom: 0;">
+                        Danh sách cấu hình chi tiết (Advanced Settings).
+                    </p>
+                </div>
+                <a asp-action="Create" class="btn btn-primary btn-sm">
+                    <i class="fa-solid fa-plus"></i> Thêm mới
+                </a>
+            </div>
+
+            <div class="table-wrapper">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="text-white">Khóa (Key)</th>
+                            <th class="text-white">Giá trị</th>
+                            <th class="text-white">Mô tả</th>
+                            <th class="text-white" style="text-align: right;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td><span style="color: var(--accent); font-family: var(--mono); font-size: 13px;">@item.SettingKey</span></td>
+                                    <td class="fw-bold text-white">@item.SettingValue</td>
+                                    <td class="text-white" style="font-size: 13px;">@item.Description</td>
+                                    <td style="text-align: right;">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-secondary" title="Sửa"><i class="fa-solid fa-pen"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4">
+                                    <div class="empty-state">
+                                        <i class="fa-solid fa-folder-open" style="font-size: 48px; color: white; margin-bottom: 16px; opacity: 0.5;"></i>
+                                        <h2 class="text-white" style="font-size: 16px;">Chưa có dữ liệu cấu hình</h2>
+                                        <p class="text-white" style="font-size: 13px;">Hãy bấm "Thêm mới" để tạo thông số đầu tiên.</p>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

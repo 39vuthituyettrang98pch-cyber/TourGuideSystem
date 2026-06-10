@@ -1,0 +1,69 @@
+﻿a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+  color: var(--text); /* Chữ trắng để làm nổi bật logo/brand */
+  font-weight: 700;
+}
+
+a {
+  /* Thay #0077cc bằng màu --accent sáng hơn để nổi bật trên nền tối */
+  color: var(--accent); 
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+a:hover {
+  color: var(--accent2);
+}
+
+.btn-primary {
+  color: #fff;
+  /* Dùng biến hệ thống thay vì mã #1b6ec2 mặc định */
+  background-color: var(--accent);
+  border-color: var(--accent);
+  transition: var(--transition);
+}
+
+.btn-primary:hover, 
+.btn-primary:focus {
+  background-color: var(--accent2);
+  border-color: var(--accent2);
+}
+
+.nav-pills .nav-link.active, 
+.nav-pills .show > .nav-link {
+  color: #fff;
+  background-color: var(--accent);
+  border-color: var(--accent);
+}
+
+/* Đổi viền xám sáng (#e5e5e5) sang viền tối của hệ thống */
+.border-top {
+  border-top: 1px solid var(--border);
+}
+.border-bottom {
+  border-bottom: 1px solid var(--border);
+}
+
+/* Tăng độ đậm của bóng đổ vì nền đen rất khó thấy bóng */
+.box-shadow {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+button.accept-policy {
+  font-size: 1rem;
+  line-height: inherit;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  white-space: nowrap;
+  line-height: 60px;
+  /* Thêm màu chữ và màu nền cho footer để phù hợp Dark Mode */
+  color: var(--text2); 
+  background-color: var(--bg2);
+  border-top: 1px solid var(--border);
+}

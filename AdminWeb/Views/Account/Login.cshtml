@@ -1,0 +1,64 @@
+@{
+    ViewData["Title"] = "Đăng nhập hệ thống";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - VERSA ADMIN</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        :root { --bg: #0d0f14; --bg2: #13161e; --bg3: #1a1e2a; --text: #e8eaf2; --text2: #8f96b0; --accent: #4f8bff; --radius: 18px; --shadow: 0 24px 60px rgba(0,0,0,0.35); }
+        * { box-sizing:border-box; }
+        body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #0b0d12 0%, #131823 100%); color: var(--text); font-family: 'Be Vietnam Pro', sans-serif; }
+        .login-card { width:min(440px,calc(100vw - 32px)); background: var(--bg2); border:1px solid rgba(255,255,255,0.06); border-radius: var(--radius); box-shadow: var(--shadow); padding: 38px; }
+        .login-brand { display:flex; align-items:center; gap:12px; margin-bottom:24px; }
+        .login-brand .logo-icon { width:48px;height:48px;border-radius:14px; display:grid; place-items:center; background: linear-gradient(135deg, var(--accent), #7c3aed); font-size:22px; }
+        .login-brand h1 { margin:0; font-size:24px; letter-spacing:-0.4px; color: white; }
+        .login-brand p { margin:4px 0 0; color: white; font-size:14px; }
+        .form-group { display:flex; flex-direction:column; gap:8px; margin-bottom:18px; }
+        .form-label { font-size:13px; color: white; }
+        .form-control { width:100%; padding:14px 16px; border-radius:14px; border:1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.03); color: white; font-size:14px; }
+        .form-control:focus { outline:none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(79,139,255,0.12); }
+        .btn-primary { width:100%; padding:14px 16px; border:none; border-radius:14px; background: var(--accent); color:white; font-weight:700; cursor:pointer; transition: transform 0.2s ease, background 0.2s ease; }
+        .btn-primary:hover { background:#3d6fd9; transform: translateY(-1px); }
+        .error { margin-bottom:16px; color:#f87171; font-size:13px; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <div class="login-brand">
+            <div class="logo-icon"><i class="fa-solid fa-compass"></i></div>
+            <div>
+                <h1>VERSA ADMIN</h1>
+                <p>Đăng nhập để quản lý hệ thống thuyết minh</p>
+            </div>
+        </div>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="error">Tên đăng nhập hoặc mật khẩu không chính xác.</div>
+        }
+
+        <form asp-controller="Account" asp-action="Login" method="post">
+            <div class="form-group">
+                <label class="form-label" for="username">Tên đăng nhập</label>
+                <input class="form-control" type="text" id="username" name="username" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Mật khẩu</label>
+                <input class="form-control" type="password" id="password" name="password" required />
+            </div>
+            <button class="btn-primary" type="submit">ĐĂNG NHẬP</button>
+        </form>
+    </div>
+
+</body>
+</html>

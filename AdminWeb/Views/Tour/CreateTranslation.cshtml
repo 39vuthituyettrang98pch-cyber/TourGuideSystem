@@ -1,0 +1,42 @@
+@model AdminWeb.Models.TourTranslation
+@{
+    ViewData["Title"] = "Thêm bản dịch ngôn ngữ cho Tour";
+}
+
+<div class="mb-4">
+    <h4 class="fw-bold mb-1 text-white">Thêm bản dịch ngôn ngữ cho Tour</h4>
+    <p class="text-secondary small">Bổ sung ngôn ngữ mới cho Tour du lịch (Tour #@Model.TourId)</p>
+</div>
+
+<div class="card" style="background-color: #1a1d24; border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 28px; max-width: 700px;">
+    <form asp-action="CreateTranslation" method="post">
+        <input type="hidden" asp-for="TourId" />
+        
+        <div class="form-group mb-4">
+            <label asp-for="LanguageCode" class="form-label" style="color: #e4e4e7; font-size: 14px; font-weight: 500;">Mã ngôn ngữ (VD: vi, en)</label>
+            <input asp-for="LanguageCode" class="form-control" style="background-color: #0f1115; border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 6px; padding: 10px 14px;" required />
+            <span asp-validation-for="LanguageCode" class="text-danger small mt-1 d-block"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <label asp-for="Title" class="form-label" style="color: #e4e4e7; font-size: 14px; font-weight: 500;">Tiêu đề Tour</label>
+            <input asp-for="Title" class="form-control" style="background-color: #0f1115; border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 6px; padding: 10px 14px;" required />
+            <span asp-validation-for="Title" class="text-danger small mt-1 d-block"></span>
+        </div>
+
+        <div class="form-group mb-4">
+            <label asp-for="Description" class="form-label" style="color: #e4e4e7; font-size: 14px; font-weight: 500;">Nội dung Tour</label>
+            <textarea asp-for="Description" class="form-control" rows="5" style="background-color: #0f1115; border: 1px solid rgba(255,255,255,0.1); color: white; border-radius: 6px; padding: 12px 14px; resize: none;"></textarea>
+            <span asp-validation-for="Description" class="text-danger small mt-1 d-block"></span>
+        </div>
+
+        <div class="d-flex gap-2 mt-2">
+            <button type="submit" class="btn" style="background-color: #3b82f6; color: white; border: none; padding: 8px 20px; border-radius: 6px; font-weight: 500;"><i class="fa-solid fa-floppy-disk me-1"></i> Lưu thông tin</button>
+            <a asp-action="Index" class="btn" style="background-color: transparent; color: #a1a1aa; border: 1px solid rgba(255,255,255,0.1); padding: 8px 20px; border-radius: 6px; font-weight: 500;">Trở về</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

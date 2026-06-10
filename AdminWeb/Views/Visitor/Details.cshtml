@@ -1,0 +1,77 @@
+@model AdminWeb.Models.Tourist
+
+@{
+    ViewData["Title"] = "Chi tiết du khách";
+}
+
+<div class="page-title">Chi tiết du khách</div>
+<div class="page-subtitle">Thông tin tổng quan về tài khoản người dùng.</div>
+
+<div class="row mt-3">
+    <div class="col-md-4 col-lg-3 mb-4">
+        <div class="card h-100 text-center" style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 20px;">
+            
+            <div style="width: 84px; height: 84px; border-radius: 50%; background: var(--accent-glow); color: var(--accent); display: grid; place-items: center; font-size: 40px; margin-bottom: 18px;">
+                <i class="fa-solid fa-user"></i>
+            </div>
+            
+            <h5 style="font-size: 18px; font-weight: 700; color: var(--text); margin-bottom: 6px;">@Model.FullName</h5>
+            <p style="font-size: 13px; color: var(--text2); margin-bottom: 18px;">Tài khoản Du khách</p>
+            
+            <span class="badge blue">Hoạt động</span>
+        </div>
+    </div>
+
+    <div class="col-md-8 col-lg-9 mb-4">
+        <div class="card h-100">
+            
+            <div class="card-header" style="display: block; border-bottom: 1px solid var(--border); padding-bottom: 16px; margin-bottom: 24px;">
+                <h5 class="card-title mb-1">
+                    <i class="fa-solid fa-address-card me-2" style="color: var(--accent);"></i> Hồ sơ chi tiết
+                </h5>
+                <p class="card-subtitle mt-1" style="color: var(--text2); font-size: 13px; margin-bottom: 0;">
+                    Các thông tin định danh và liên hệ của hệ thống.
+                </p>
+            </div>
+            
+            <div class="card-body" style="padding: 0;">
+                <div class="form-grid" style="margin-bottom: 24px;">
+                    <div class="form-group">
+                        <label class="form-label" style="margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Mã định danh (ID)</label>
+                        <div style="font-size: 16px; font-weight: 700; color: var(--text);">#@Model.Id</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" style="margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Ngày đăng ký</label>
+                        <div style="font-size: 15px; color: var(--text);">@Model.CreatedAt.ToString("dd/MM/yyyy HH:mm")</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Họ và Tên</label>
+                        <div style="font-size: 16px; font-weight: 700; color: var(--text);">@Model.FullName</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" style="margin-bottom: 6px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px;">Email liên hệ</label>
+                        <div>
+                            <a href="mailto:@Model.Email" style="font-size: 15px; color: var(--accent); text-decoration: none; font-weight: 500;">
+                                <i class="fa-solid fa-envelope me-1"></i> @Model.Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr style="border-color: var(--border); margin: 30px 0 20px;" />
+                
+                <div style="display: flex; gap: 12px; justify-content: flex-end;">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        Quay lại danh sách
+                    </a>
+                    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+                        <i class="fa-solid fa-pen"></i> Chỉnh sửa hồ sơ
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

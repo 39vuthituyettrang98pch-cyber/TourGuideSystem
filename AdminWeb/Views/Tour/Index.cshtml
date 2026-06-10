@@ -1,0 +1,87 @@
+@model IEnumerable<AdminWeb.Models.Tour>
+
+@{
+    ViewData["Title"] = "Tour du lịch";
+}
+
+<div class="page-title">Tour du lịch</div>
+<div class="page-subtitle">Quản lý lộ trình, thứ tự POI và trạng thái tour</div>
+<div class="toolbar">
+    <div>
+        <form asp-action="Index" method="get" style="display: flex; gap: 8px;">
+            <input type="text" name="searchString" value="@ViewBag.SearchString" class="form-control" placeholder="Tìm kiếm tên Tour..." style="padding: 6px 12px; width: 250px; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); color: var(--text); border-radius: 8px;" />
+            <button type="submit" class="btn btn-secondary btn-sm" title="Tìm kiếm"><i class="fa-solid fa-magnifying-glass"></i></button>
+            @if (!string.IsNullOrEmpty(ViewBag.SearchString as string))
+            {
+                <a asp-action="Index" class="btn btn-secondary btn-sm" title="Xóa tìm kiếm"><i class="fa-solid fa-xmark"></i></a>
+            }
+        </form>
+    </div>
+    <div style="display: flex; gap: 8px;">
+        <a asp-action="ExportExcel" class="btn btn-secondary btn-sm"><i class="fa-solid fa-file-excel"></i> Xuất Excel</a>
+        <a asp-action="Create" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Tạo Tour</a>
+    </div>
+</div>
+
+@if (!Model.Any()) {
+    <div class="card">
+        <div class="empty-state">
+            <h2>Chưa có tour nào</h2>
+            <p>Hãy tạo tour đầu tiên để bắt đầu quản lý lộ trình và nội dung đa ngôn ngữ.</p>
+            <a asp-action="Create" class="btn btn-primary">Tạo Tour mới</a>
+        </div>
+    </div>
+} else {
+    <div class="tour-grid">
+        @foreach (var tour in Model) {
+            var viTranslation = tour.Translations.FirstOrDefault(t => t.LanguageCode == "vi");
+            var enTranslation = tour.Translations.FirstOrDefault(t => t.LanguageCode == "en");
+            var poiCount = tour.TourPois?.Count ?? 0;
+            <div class="tour-card">
+                <div class="tour-card-cover" style="background:linear-gradient(135deg,#1a2a4a,#2d4a7a)">🎒</div>
+                <div class="tour-card-body">
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap">
+                        <span class="badge @(tour.Status == "active" ? "green" : tour.Status == "draft" ? "amber" : "red")">@tour.Status</span>
+                        <span style="font-size:12px;color:var(--text3)">@poiCount POI</span>
+                    </div>
+                    <div class="tour-card-title">@(viTranslation?.Title ?? $"Tour #{tour.Id}")</div>
+                    <div class="tour-card-meta">
+                        <span><i class="fa-solid fa-clock"></i> @tour.EstimatedTime phút</span>
+                        <span><i class="fa-solid fa-language"></i> @string.Join(" • ", tour.Translations.Select(t => t.LanguageCode.ToUpper()))</span>
+                    </div>
+                    <div class="tour-card-stats">
+                        <span class="tour-stat"><i class="fa-solid fa-calendar-days"></i> @tour.CreatedAt.ToString("dd/MM/yyyy")</span>
+                        <span class="tour-stat"><i class="fa-solid fa-user-group"></i> @poiCount điểm</span>
+                        <div style="display:flex;gap:6px;margin-left:auto;flex-wrap:wrap;">
+                            <a asp-action="Edit" asp-route-id="@tour.Id" class="btn btn-secondary btn-sm" title="Sửa Tour"><i class="fa-solid fa-pen"></i></a>
+                            <a asp-controller="TourTranslation" asp-action="Index" asp-route-tourId="@tour.Id" class="btn btn-secondary btn-sm" title="Bản dịch"><i class="fa-solid fa-language"></i></a>
+                            <a asp-action="ManagePois" asp-route-id="@tour.Id" class="btn btn-secondary btn-sm" title="Quản lý POI"><i class="fa-solid fa-map-pin"></i></a>
+                            <form asp-action="Delete" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa tour này?');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@tour.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger" title="Xóa Tour"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+@if (ViewBag.TotalPages != null && ViewBag.TotalPages > 1)
+{
+    <div style="display:flex; justify-content:center; gap:8px; margin-top:20px;">
+        @if (ViewBag.CurrentPage > 1)
+        {
+            <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage - 1)" asp-route-searchString="@ViewBag.SearchString" class="btn btn-secondary btn-sm">Trang trước</a>
+        }
+        <span style="display:inline-flex; align-items:center; padding:0 12px; background:rgba(255,255,255,0.05); border-radius:8px; font-size:14px; font-weight: 600;">
+            Trang @ViewBag.CurrentPage / @ViewBag.TotalPages
+        </span>
+        @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+        {
+            <a asp-action="Index" asp-route-page="@(ViewBag.CurrentPage + 1)" asp-route-searchString="@ViewBag.SearchString" class="btn btn-secondary btn-sm">Trang sau</a>
+        }
+    </div>
+}
