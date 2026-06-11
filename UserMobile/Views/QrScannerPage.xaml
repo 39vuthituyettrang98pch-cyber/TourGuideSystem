@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:zxing="clr-namespace:ZXing.Net.Maui.Controls;assembly=ZXing.Net.Maui.Controls"
+             x:Class="UserMobile.Views.QrScannerPage"
+             Title="Quét QR">
+
+    <Grid RowDefinitions="*,Auto" Padding="0">
+        <Frame BackgroundColor="#F4F4F8"
+               CornerRadius="16"
+               Margin="16"
+               VerticalOptions="Center"
+               HorizontalOptions="FillAndExpand"
+               HeightRequest="320">
+            <StackLayout Spacing="14" HorizontalOptions="Center" VerticalOptions="Center">
+                <Label Text="QR Scanner"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center" />
+                <zxing:CameraBarcodeReaderView x:Name="BarcodeReader"
+                                                VerticalOptions="FillAndExpand"
+                                                HorizontalOptions="FillAndExpand"
+                                                IsDetecting="True"
+                                                Margin="0,8,0,0" />
+            </StackLayout>
+        </Frame>
+
+        <Frame Grid.Row="1"
+               BackgroundColor="#000000CC"
+               Padding="16">
+            <Label Text="{Binding ScanResult}"
+                   TextColor="White"
+                   FontSize="16" />
+        </Frame>
+    </Grid>
+</ContentPage>

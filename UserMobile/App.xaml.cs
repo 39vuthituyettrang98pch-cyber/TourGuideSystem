@@ -1,16 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
 namespace UserMobile;
 
 public partial class App : Application
 {
-	public App()
-	{
-		InitializeComponent();
-	}
+    public static IServiceProvider? Services { get; private set; }
 
-	protected override Window CreateWindow(IActivationState? activationState)
-	{
-		return new Window(new AppShell());
-	}
+    public App()
+    {
+        InitializeComponent();
+    }
+
+    public static void InitializeServices(IServiceProvider services)
+    {
+        Services = services;
+    }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+    {
+        return new Window(new AppShell());
+    }
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UserMobile.Views.LanguageSelectionPage"
+             Title="Language Selection">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="24" Spacing="24">
+            <Label Text="Phố đi bộ"
+                   FontSize="32"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center" />
+            <Label Text="Chọn ngôn ngữ"
+                   FontSize="18"
+                   HorizontalOptions="Center" />
+
+            <CollectionView ItemsSource="{Binding Languages}"
+                            SelectionMode="Single"
+                            SelectedItem="{Binding SelectedLanguage}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="16"
+                               Padding="16"
+                               Margin="0,8"
+                               HasShadow="False"
+                               BackgroundColor="{AppThemeBinding Light=#F4F4F8, Dark=#1F1F26}">
+                            <Grid ColumnDefinitions="Auto, *">
+                                <Label Text="{Binding NativeName}"
+                                       FontSize="16"
+                                       VerticalOptions="Center" />
+                                <Label Text="{Binding Name}"
+                                       FontSize="12"
+                                       TextColor="#6B6B80"
+                                       Grid.Column="1"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="End" />
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Tiếp tục"
+                    Command="{Binding SaveLanguageCommand}" />
+
+            <ActivityIndicator IsRunning="{Binding IsBusy}"
+                               IsVisible="{Binding IsBusy}" />
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
