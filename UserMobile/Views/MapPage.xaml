@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:maps="clr-namespace:Microsoft.Maui.Controls.Maps;assembly=Microsoft.Maui.Controls.Maps"
+             x:Class="UserMobile.Views.MapPage"
+             Title="Bản đồ">
+
+    <Grid RowDefinitions="Auto, *">
+        <Label Text="Bản đồ"
+               FontSize="24"
+               FontAttributes="Bold"
+               Margin="16,24,16,8" />
+
+        <Grid Row="1">
+            <maps:Map x:Name="MapControl"
+                      IsShowingUser="True"
+                      MapType="Street"
+                      VerticalOptions="Fill"
+                      HorizontalOptions="Fill" />
+
+            <Frame BackgroundColor="#F8F8FA"
+                   CornerRadius="16"
+                   Padding="16"
+                   Margin="16"
+                   VerticalOptions="End"
+                   HasShadow="True">
+                <StackLayout Spacing="12">
+                    <Label Text="Các địa điểm có thuyết minh"
+                           FontSize="16"
+                           FontAttributes="Bold" />
+                    <CollectionView ItemsSource="{Binding Places}"
+                                    SelectionMode="Single"
+                                    SelectionChangedCommand="{Binding SelectPlaceCommand}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="12"
+                                       CornerRadius="12"
+                                       BackgroundColor="White"
+                                       HasShadow="False">
+                                    <StackLayout Spacing="4">
+                                        <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                        <Label Text="{Binding Description}" FontSize="12" TextColor="#666" />
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UserMobile.Views.ProfilePage"
+             Title="Cá nhân">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="20">
+            <Label Text="Cá nhân"
+                   FontSize="24"
+                   FontAttributes="Bold" />
+
+            <Label Text="Quản lý hệ thống, hiển thị và ngôn ngữ"
+                   TextColor="#666" />
+
+            <Button Text="Đăng nhập"
+                    HorizontalOptions="Fill" />
+
+            <Frame CornerRadius="16"
+                   Padding="16"
+                   BackgroundColor="White"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Thông tin người dùng" FontAttributes="Bold" />
+                    <Label Text="{Binding WelcomeText}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame CornerRadius="16"
+                   Padding="16"
+                   BackgroundColor="White"
+                   HasShadow="True">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Cài đặt" FontAttributes="Bold" />
+                    <Label Text="Ngôn ngữ hiện tại: Tiếng Việt" />
+                    <Label Text="Đăng nhập để xem thêm" />
+                </VerticalStackLayout>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

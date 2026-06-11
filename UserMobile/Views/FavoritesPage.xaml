@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UserMobile.Views.FavoritesPage"
+             Title="Yêu thích">
+
+    <ContentPage.Content>
+        <StackLayout Padding="16" Spacing="20">
+            <Label Text="Yêu thích"
+                   FontSize="24"
+                   FontAttributes="Bold" />
+
+            <Label Text="Để xem yêu thích, vui lòng đăng nhập hoặc đăng ký nếu chưa." 
+                   TextColor="#666" />
+
+            <CollectionView ItemsSource="{Binding Favorites}"
+                            SelectionMode="Single"
+                            SelectionChangedCommand="{Binding SelectFavoriteCommand}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame CornerRadius="16"
+                               Padding="16"
+                               Margin="0,8"
+                               HasShadow="True"
+                               BackgroundColor="White">
+                            <StackLayout Spacing="6">
+                                <Label Text="{Binding Title}" FontAttributes="Bold" />
+                                <Label Text="{Binding Description}" FontSize="14" TextColor="#666" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

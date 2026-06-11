@@ -52,3 +52,6 @@ _schema_history
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+## File design
+.hidden*
